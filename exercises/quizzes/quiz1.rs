@@ -12,6 +12,21 @@
 // the quantity bought.
 // fn calculate_price_of_apples(???) -> ??? { ??? }
 
+const APPLE_PRICE: u32 = 2;
+const APPLE_COUNT_DISCOUNT_THRESHOLD: u32 = 40;
+const DISCOUNTED_APPLE_PRICE: u32 = 1;
+
+fn calculate_price_of_apples(quantity: u32) -> u32 {
+    let price= if quantity > APPLE_COUNT_DISCOUNT_THRESHOLD {
+        DISCOUNTED_APPLE_PRICE
+    }
+    else {
+        APPLE_PRICE
+    };
+
+    price * quantity
+}
+
 fn main() {
     // You can optionally experiment here.
 }
