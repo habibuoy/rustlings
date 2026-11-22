@@ -30,7 +30,16 @@ fn build_scores_table(results: &str) -> HashMap<&str, TeamScores> {
         // TODO: Populate the scores table with the extracted details.
         // Keep in mind that goals scored by team 1 will be the number of goals
         // conceded by team 2. Similarly, goals scored by team 2 will be the
-        // number of goals conceded by team 1.
+        // number of goals conceded by team 1.        
+        let team_1_team_score = scores.entry(team_1_name)
+            .or_insert(TeamScores { goals_scored: 0, goals_conceded: 0 });
+        team_1_team_score.goals_scored += team_1_score;
+        team_1_team_score.goals_conceded += team_2_score;
+
+        let team_2_team_score = scores.entry(team_2_name)
+            .or_insert(TeamScores { goals_scored: 0, goals_conceded: 0 });
+        team_2_team_score.goals_scored += team_2_score;
+        team_2_team_score.goals_conceded += team_1_score;
     }
 
     scores
@@ -38,6 +47,18 @@ fn build_scores_table(results: &str) -> HashMap<&str, TeamScores> {
 
 fn main() {
     // You can optionally experiment here.
+
+// Don't add indentations for the second row to last row, because it will mess the test
+//     const RESULTS: &str = "England,France,4,2
+// France,Italy,3,1
+// Poland,Spain,2,0
+// Germany,England,2,1
+// England,Spain,1,0";
+
+//     let scores_table  = build_scores_table(RESULTS);
+//     for (team_name, _) in scores_table {
+//         println!("{team_name}");
+//     }
 }
 
 #[cfg(test)]
